@@ -1,0 +1,21 @@
+#expand-sidenav {
+    position: absolute;
+    bottom: 50%;
+    left: -2%;
+}
+
+#expand-sidenav > i {
+    padding-left: 40%;
+}
+
+#expand-sidenav:hover {
+    transform: scale(1.2);
+}
+
+body {
+    background-color: rgb(240, 240, 240);
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
