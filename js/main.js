@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     var elem = document.querySelector(".sidenav");
     var instance = M.Sidenav.init(elem, options);
+
+    if (instance.isOpen) {
+        console.log("Hell yeah");
+    }
 });
 
 const options = {

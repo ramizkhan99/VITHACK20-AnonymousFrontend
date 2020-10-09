@@ -21,14 +21,14 @@
             <div
                 class="nav-wrapper row grey lighten-5 black-text row navbar-fixed"
             >
-                <div class="input-field col l6">
+                <div class="input-field col l4">
                     <input id="search" type="search" required />
                     <label class="label-icon" for="search"
                         ><i class="material-icons grey-text">search</i></label
                     >
                     <i class="material-icons">close</i>
                 </div>
-                <div class="col l6">
+                <div class="col l8">
                     <ul class="right hide-on-med-and-down">
                         <li>
                             <a class="grey-text text-darken-2" href="sass.html"
@@ -70,6 +70,23 @@
 
         <ul id="slide-out" class="sidenav sidenav-fixed z-depth-0">
             <li>
+                <div class="user-view">
+                    <a href="#user"
+                        ><img class="circle" src="images/avatar.jpg"
+                    /></a>
+                    <a href="#name"
+                        ><span class="grey-text text-darken-3 name"
+                            >John Doe</span
+                        ></a
+                    >
+                    <a href="#email"
+                        ><span class="grey-text email"
+                            >john.doe@email.com</span
+                        ></a
+                    >
+                </div>
+            </li>
+            <li>
                 <a href="#!"
                     ><i class="material-icons">cloud</i>First Link With Icon</a
                 >
@@ -85,15 +102,29 @@
             href="#"
             data-target="slide-out"
             class="btn-floating btn-large waves-effect waves-light red sidenav-trigger"
-            ><i class="material-icons" onClick="shiftContentRight()"
-                >chevron_right</i
-            ></a
+            ><i class="material-icons">chevron_right</i></a
         >
 
         <div class="container">
             <div class="status">
-                <div class="card z-depth-2">
-                    <p>This is some text</p>
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card green accent-2">
+                            <div class="card-content">
+                                <span
+                                    class="card-title grey-text text-darken-2"
+                                >
+                                    Status
+                                </span>
+                                <p>
+                                    I am a very simple card. I am good at
+                                    containing small bits of information. I am
+                                    convenient because I require little markup
+                                    to use effectively.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

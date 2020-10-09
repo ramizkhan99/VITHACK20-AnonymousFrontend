@@ -1,11 +1,13 @@
 #expand-sidenav {
     position: absolute;
     bottom: 50%;
-    left: -2%;
+    left: -4%;
 }
 
 #expand-sidenav > i {
     padding-left: 40%;
+    background-color: white;
+    color: grey;
 }
 
 #expand-sidenav:hover {
@@ -18,4 +20,9 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+}
+
+.user-view {
+    color: black;
+    background-color: rgb(226, 226, 226);
 }
