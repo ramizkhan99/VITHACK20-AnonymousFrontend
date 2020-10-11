@@ -1,8 +1,8 @@
 # VITHACK20-AnonymousFrontend
 This is the frontend repository for Medic4All app by team Anonymous for VITHack 2020.
 
-Company: Vicara
-Category: Healthcare
+### Company: Vicara
+### Category: Healthcare
 
 
 ## Implementations
