@@ -1,4 +1,6 @@
 const API = "http://127.0.0.1:3768";
+let ecg_data = [];
+let bp_data = [];
 
 document.addEventListener("DOMContentLoaded", function () {
     var elem = document.querySelector(".sidenav");
@@ -30,7 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
     })
         .then((response) => response.json())
         .then((data) => {
-            renderChart(data.predictions.bpData, "ecg_chart");
+            populateBpData(data.predictions.bpData);
+            renderChart(data.predictions.bpData, "bp_chart");
         })
         .catch((error) => {
             console.log(error);
@@ -61,6 +64,14 @@ $("#expand-sidenav").on("click", function () {
     );
 });
 
+function populateBpData(data) {
+    bp_data = data;
+    if (document.querySelector("#bp").style.display !== "none") {
+        console.log("here");
+        renderChart(bp_data, "bp_detailed");
+    }
+}
+
 $("#collapse-sidenav").on("click", function () {
     $(".sidenav").toggleClass("sidenav-fixed");
     const instance = M.Sidenav.init(
@@ -88,6 +99,7 @@ $(".card").click(function (e) {
 // Chart.js stuff here
 function renderChart(apiData, id) {
     var ctx = document.getElementById(id).getContext("2d");
+    console.log(apiData);
     var myChart = new Chart(ctx, {
         type: "line",
         data: {
