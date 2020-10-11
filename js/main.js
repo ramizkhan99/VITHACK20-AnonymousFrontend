@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("#collapse-sidenav > i").innerHTML =
             "chevron_left";
     }
-    const ecgData = fetch(`${API}/predict`, {
+    const bpData = fetch(`${API}/predict`, {
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
@@ -38,6 +38,15 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch((error) => {
             console.log(error);
         });
+
+    // const ecgData = fetch(`${API}/predict`, {
+    //     method: "POST",
+    //     mode: "cors",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+
+    //     })
+    // })
 });
 
 const options = {
@@ -91,15 +100,42 @@ $("nav a").click(function (e) {
     $($(this).attr("href")).css("display", "block");
 });
 
-$(".card").click(function (e) {
+$(".selectable").click(function (e) {
     $("section").css("display", "none");
     $($(this).attr("data-section")).css("display", "block");
 });
 
+const selectedFile = document
+    .getElementById("input")
+    .addEventListener("change", function () {
+        var fr = new FileReader();
+        fr.onload = function () {
+            fetch(`${API}/predict`, {
+                method: "POST",
+                mode: "cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    ecgData: fr.result,
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    ecg_data = data.predictions.ecgData;
+                    document.querySelector("#input").style.display = "none";
+                    document.querySelector("#ecg_rhythm").innerHTML =
+                        ecg_data.rhythm;
+                    document.querySelector("#ecg_message").innerHTML =
+                        ecg_data.message;
+                })
+                .catch((err) => console.log(err));
+        };
+
+        fr.readAsText(this.files[0]);
+    });
+
 // Chart.js stuff here
 function renderChart(apiData, id) {
     var ctx = document.getElementById(id).getContext("2d");
-    console.log(apiData);
     var myChart = new Chart(ctx, {
         type: "line",
         data: {

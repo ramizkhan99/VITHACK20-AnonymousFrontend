@@ -139,7 +139,7 @@
                         </div>
                         <div class="valign-wrapper col s12 m6 l6">
                             <div
-                                class="card horizontal pulse row hoverable"
+                                class="card horizontal pulse row hoverable selectable"
                                 data-section="#bp"
                             >
                                 <div class="card-content col l6 m6">
@@ -163,6 +163,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="valign-wrapper col s12 m6 l6">
+                        <div class="card pulserow hoverable row">
+                            <div class="card-content col l6 m6">
+                                <span class="card-title"> ECG data </span>
+                                <input type="file" id="input" multiple />
+                                <div>
+                                    <p id="ecg_rhythm" class="green-text"></p>
+                                    <p id="ecg_message"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
             <section id="ecg">
@@ -173,7 +185,7 @@
             <section id="bp">
                 <div class="bp-section">
                     <h1 class="center-align">Blood Pressure Report</h1>
-                    <div class="center-block">
+                    <div class="center-block row">
                         <canvas
                             id="bp_detailed"
                             width="100%"
