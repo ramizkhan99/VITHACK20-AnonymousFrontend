@@ -4,13 +4,12 @@ document.addEventListener("DOMContentLoaded", function () {
     var elem = document.querySelector(".sidenav");
     var instanceInit = M.Sidenav.init(elem, options);
     if (instanceInit.isOpen) {
-        document.querySelector("#expand-sidenav").style.left +=
+        document.querySelector("#collapse-sidenav").style.left +=
             elem.offsetWidth - 30 + "px";
-        document.querySelector("#expand-sidenav > i").innerHTML =
+        document.querySelector("#collapse-sidenav > i").innerHTML =
             "chevron_left";
     }
-
-    fetch(`${API}/predict`, {
+    const ecgData = fetch(`${API}/predict`, {
         method: "POST",
         mode: "cors",
         headers: { "Content-Type": "application/json" },
@@ -31,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            renderChart(data.predictions.bpData, "ecg_chart");
         })
         .catch((error) => {
             console.log(error);
@@ -42,22 +41,17 @@ const options = {
     onCloseStart: function () {
         document.querySelector("*").style.transition = "all .2s";
         document.querySelector("*").style.paddingLeft = "0px";
+        $("#expand-sidenav").css("display", "block");
+        $("#collapse-sidenav").css("display", "none");
     },
     onOpenStart: function () {
         document.querySelector("*").style.transition = "all .2s";
         document.querySelector("*").style.paddingLeft = "300px";
+        $("#expand-sidenav").css("display", "none");
+        $("#collapse-sidenav").css("display", "block");
     },
     preventScrolling: false,
 };
-
-$(".card").hover(
-    function () {
-        $(this).removeClass("z-depth-1").addClass("z-depth-3");
-    },
-    function () {
-        $(this).removeClass("z-depth-3").addClass("z-depth-1");
-    }
-);
 
 $("#expand-sidenav").on("click", function () {
     $(".sidenav").toggleClass("sidenav-fixed");
@@ -65,16 +59,73 @@ $("#expand-sidenav").on("click", function () {
         document.querySelector(".sidenav"),
         options
     );
-    if (instance.isOpen) {
-        document.querySelector("#expand-sidenav").style.left +=
-            document.querySelector(".sidenav").offsetWidth - 30 + "px";
-        document.querySelector("#expand-sidenav > i").innerHTML =
-            "chevron_left";
-    } else {
-        document.querySelector("#expand-sidenav").style.left -=
-            document.querySelector(".sidenav").offsetWidth - 30 + "px";
-        document.querySelector("#expand-sidenav > i").innerHTML =
-            "chevron_right";
-    }
+});
+
+$("#collapse-sidenav").on("click", function () {
+    $(".sidenav").toggleClass("sidenav-fixed");
+    const instance = M.Sidenav.init(
+        document.querySelector(".sidenav"),
+        options
+    );
     instance.close();
 });
+
+$(".sidenav > li > a").on("click", function (e) {
+    $("section").css("display", "none");
+    $($(this).attr("href")).css("display", "block");
+});
+
+$("nav a").click(function (e) {
+    $("section").css("display", "none");
+    $($(this).attr("href")).css("display", "block");
+});
+
+$(".card").click(function (e) {
+    $("section").css("display", "none");
+    $($(this).attr("data-section")).css("display", "block");
+});
+
+// Chart.js stuff here
+function renderChart(apiData, id) {
+    var ctx = document.getElementById(id).getContext("2d");
+    var myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: [...Array(apiData.length).keys()],
+            datasets: [
+                {
+                    label: "Blood Pressure",
+                    data: apiData,
+                    backgroundColor: [
+                        "rgba(255, 99, 132, 0.2)",
+                        "rgba(54, 162, 235, 0.2)",
+                        "rgba(255, 206, 86, 0.2)",
+                        "rgba(75, 192, 192, 0.2)",
+                        "rgba(153, 102, 255, 0.2)",
+                        "rgba(255, 159, 64, 0.2)",
+                    ],
+                    borderColor: [
+                        "rgba(255, 99, 132, 1)",
+                        "rgba(54, 162, 235, 1)",
+                        "rgba(255, 206, 86, 1)",
+                        "rgba(75, 192, 192, 1)",
+                        "rgba(153, 102, 255, 1)",
+                        "rgba(255, 159, 64, 1)",
+                    ],
+                    borderWidth: 1,
+                },
+            ],
+        },
+        options: {
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    },
+                ],
+            },
+        },
+    });
+}

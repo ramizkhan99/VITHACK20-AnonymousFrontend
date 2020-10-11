@@ -19,4 +19,5 @@ $(".card-action > button").hover(
 $("#login").submit(function (e) {
     e.preventDefault();
     console.log("Form submitted");
+    window.location = "/dashboard.html";
 });

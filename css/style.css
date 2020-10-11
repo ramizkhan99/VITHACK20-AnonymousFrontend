@@ -1,7 +1,7 @@
 #expand-sidenav {
     position: absolute;
     bottom: 50%;
-    left: -4%;
+    left: -2%;
 }
 
 #expand-sidenav > i {
@@ -10,7 +10,23 @@
     color: grey;
 }
 
+#collapse-sidenav {
+    position: absolute;
+    bottom: 50%;
+    left: -4%;
+}
+
+#collapse-sidenav > i {
+    padding-left: 40%;
+    background-color: white;
+    color: grey;
+}
+
 #expand-sidenav:hover {
+    transform: scale(1.2);
+}
+
+#collapse-sidenav:hover {
     transform: scale(1.2);
 }
 
@@ -21,6 +37,7 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 .user-view {
@@ -37,4 +54,16 @@ body {
     font-size: 10vw;
     color: rgba(255, 255, 255, 0.781);
     margin: 0;
+}
+
+.card {
+    cursor: pointer;
+}
+
+#ecg {
+    display: none;
+}
+
+#bp {
+    display: none;
 }
